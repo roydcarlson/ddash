@@ -1,4 +1,5 @@
 # Distributed Data Sharing Hyperledger (DDASH)
+
 Omar Metwally, MD
 UCSF Medical Center, Department of Clinical Informatics
 ---
@@ -77,5 +78,31 @@ contract.transact(tx).push_record("ipfshash","description","sender_pubkey_finger
 contract.call().get_record(0)  # retrieve record by row number
 ```
 The above code block demonstrates how to execute a simple contract method (greet_omar), add a record (push_record), and retrieve a record(get_record). Note the difference between locally calling a method (using call().method()) and sending a transaction to the blockchain (contract.transact(tx).push_record(...)).
+
+## Adding files to the IPFS network
+Make sure you already have *geth* and *ipfs* daemons running, and start an interactive python shell. In this example, we'll add *experimentData.csv* to the distributed IPFS network via:
+```
+python
+>>> import ipfsapi
+>>> api = ipfsai.connect()
+>>> api.add('/path/to/experimentData.csv')
+>>> QmRmE1vnc7mbEiqQv5SjrW3ctAmXXt4MQqbykenJmSqPuk
+```
+You can access your experimentData.csv file by copy-pasting this URL in your webbrowser:
+```
+ipfs.io/QmRmE1vnc7mbEiqQv5SjrW3ctAmXXt4MQqbykenJmSqPuk
+```
+
+We will use the private blockchain to keep track of the fact that you shared this file with the world:
+
+```
+>>> contract.transact(tx).push_record("QmRmE1vnc7mbEiqQv5SjrW3ctAmXXt4MQqbykenJmSqPuk","Data from Phase I Clinical Trial","08-3983-1398","public")
+```
+
+## Mining on the *blackswan* Ethereum network
+Mining difficulty is currently very easy (0x00001) on the blackswan network. Go ahead and make a few million Ether by running:
+```
+geth --verbosity 4 --datadir /Users/breitkopf/Desktop/blackswan/data --networkid 4828 --port 30303 --rpc 104.236.141.200 --rpcport 8545  --mine console
+```
 
 
