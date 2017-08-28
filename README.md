@@ -1,7 +1,9 @@
 # Distributed Data Sharing Hyperledger (DDASH)
 
 Copyright (C) 2017  Omar Metwally, MD
+
 [omar.metwally@gmail.com](mailto:omar.metwally@gmail.com)
+
 [osmode](https://www.twitter.com/osmode)
 
 UCSF Medical Center 
