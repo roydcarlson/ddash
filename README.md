@@ -26,7 +26,7 @@ DDASH is a distributed networking permissions manager that inferfaces between th
 ## Why DDASH?
 Despite the wealth of data produced by academic institutions, research labs, hospitals, and companies, only a small percentage of data is used to its fullest potential. DDASH is an emerging protocol for sharing data on the distributed IPFS network and storing permissions on the Ethereum blockchain. 
 
-###In its usual siloed state, data is a liability rather than an asset.
+### In its usual siloed state, data is a liability rather than an asset.
 
 *DDASH turns data into digital assets.*
 
@@ -42,7 +42,7 @@ Our goals are to:
 DDASH currently runs on the *blackswan* private Ethereum network at 104.236.141.200.
 
 ## Prerequisites
-This project is built on [IPFS](https://github.com/ipfs/ipfs), [Ethereum](https://www.ethereum.org), [OpenPGP](https://www.openpgp.org), [web3.py](https://github.com/pipermerriam/web3.py), [py-ipfs](https://github.com/ipfs/py-ipfs-api). 
+This project is built on awesome work by the [IPFS](https://github.com/ipfs/ipfs), [Ethereum](https://www.ethereum.org), [OpenPGP](https://www.openpgp.org), [web3.py](https://github.com/pipermerriam/web3.py), [py-ipfs](https://github.com/ipfs/py-ipfs-api) communities. 
 
 ## License
 MIT License (see *LICENSE* file above).
@@ -216,6 +216,5 @@ You can submit bug reports using the [GitHub issue tracker](https://github.com/o
 Pull requests are welcome.
 
 ### Miners
-The strength of a distributed network lies in distributed computing power. You can strengthen the DDASH network by running a *blackswan* network node. See above for details.
-
+The strength of a distributed network lies in distributed computing power. You can strengthen the DDASH network by running a *blackswan* network node (and earn crytographic tokens in return). See above for details.
 
