@@ -8,7 +8,7 @@
             |_____/|_____/_/    \_\_____/|_|  |_|
                                              
 
-:earth_americas: :rocket: :boom: :rocket: :earth_asia: :rocket: :boom: :rocket: :boom: :rocket: :earth_africa: 
+:earth_americas: :rocket: :boom: :rocket: :earth_asia: :boom: :rocket: :boom: :earth_africa: :rocket: :boom: :rocket: :eart_americas:
 
 Copyright (C) 2017  [Omar Metwally, MD](https://omarmetwally.wordpress.com) 
 
