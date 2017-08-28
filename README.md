@@ -17,37 +17,38 @@ Twitter: [@osmode](https://www.twitter.com/osmode)
 Email: [omar.metwally@gmail.com](mailto:omar.metwally@gmail.com)
 
 UCSF Medical Center, Department of Clinical Informatics
-
-
 ---
+
 ## What is DDASH?
+---
 DDASH is a distributed networking permissions manager that inferfaces between the Interplanetary File System ([IPFS](https://github.com/ipfs/ipfs)) and the [Ethereum](https://www.ethereum.org) blockchain. 
 
 ## Why DDASH?
+---
 Despite the wealth of data produced by academic institutions, research labs, hospitals, and companies, only a small percentage of data is used to its fullest potential. DDASH is an emerging protocol for sharing data on the distributed IPFS network and storing permissions on the Ethereum blockchain. 
 
 ### In its usual siloed state, data is a liability rather than an asset.
 
-*DDASH turns data into digital assets.*
+#### *DDASH turns data into digital assets.*
 
 No longer confined to a single machine, data hosted on the IPFS network flows perputually through network nodes, rendering it indestructable and instantly accessible. Permissions are managed via PGP keypair encryption and stored on the Ethereum blockchain. Network participants are rewarded with cryptographic tokens to incentivize effective data sharing and utilization and growth of the network.
 
 Our goals are to:
 
-1. Break down all barriers to information exchange within and among organizations.
-2. Provide granular control over who can access distributed data
-3. Create economies around digital assets to incentivize effective data sharing.
+1. Eliminate barriers to information exchange within and among organizations.
+2. Provide granular permission control.
+3. Build economies around digital assets to incentivize effective use of data.
 
 ## Ethereum network
+---
 DDASH currently runs on the *blackswan* private Ethereum network at 104.236.141.200.
 
 ## Prerequisites
-This project is built on awesome work by the [IPFS](https://github.com/ipfs/ipfs), [Ethereum](https://www.ethereum.org), [OpenPGP](https://www.openpgp.org), [web3.py](https://github.com/pipermerriam/web3.py), [py-ipfs](https://github.com/ipfs/py-ipfs-api) communities. 
-
-## License
-MIT License (see *LICENSE* file above).
+---
+This project is built on awesome work by the [IPFS](https://github.com/ipfs/ipfs), [Ethereum](https://www.ethereum.org), [OpenPGP](https://www.openpgp.org), [web3.py](https://github.com/pipermerriam/web3.py), and [py-ipfs](https://github.com/ipfs/py-ipfs-api) communities. 
 
 ## Getting Started
+---
 Make sure you have the [Go Ethereum client](https://github.com/ethereum/go-ethereum) installed on your machine, and install the *web3.py* and *py-ipfs* Python packages. The instructions here are for machines running Ubuntu 16.04. [This tutorial](https://omarmetwally.wordpress.com/2017/07/25/how-to-create-a-private-ethereum-network/) covers basic Ethereum networking.
 
 Start by creating these directories in your root directory:
@@ -76,6 +77,7 @@ ipfs daemon
 ```
 
 ### Examples
+---
 In this example, we'll use the Python web3 object (analogous to web3.js) to interact with the private Ethereum network called *blackswan*. Make sure you have geth and ipfs running (see above). Start by opening a Python interactive shell and try:
 ```
 from web3 import Web3, HTTPProvider, IPCProvider
@@ -108,6 +110,7 @@ contract.call().get_record(0)  # retrieve record by row number
 The above code block demonstrates how to execute a simple contract method (greet_omar), add a record (push_record), and retrieve a record(get_record). Note the difference between locally calling a method (using *call().method()*) and sending a transaction to the blockchain (*contract.transact(tx).push_record(...)*)
 
 ## Adding files to the IPFS network
+---
 Make sure you already have *geth* and *ipfs* daemons running, and start an interactive python shell. In this example, we'll add *experimentData.csv* to the distributed IPFS network via:
 ```
 import ipfsapi
@@ -128,12 +131,14 @@ contract.transact(tx).push_record("QmRmE1vnc7mbEiqQv5SjrW3ctAmXXt4MQqbykenJmSqPu
 ```
 
 ## Mining on the *blackswan* Ethereum network
+---
 Mining difficulty is currently very easy (0x00001) on the blackswan network. Go ahead and make a few million Ether by running:
 ```
 geth --verbosity 4 --datadir /Users/breitkopf/Desktop/blackswan/data --networkid 4828 --port 30303 --rpc 104.236.141.200 --rpcport 8545  --mine console
 ```
 
 ## Permissions management 
+---
 Data on the IPFS network cannot be removed and can be accessed by anyone who has your content hash. DDASH utilizes PGP keypair encryption to control permissions. The above examples demonstrated how to share data at IPFS address *QmRmE1vnc7mbEiqQv5SjrW3ctAmXXt4MQqbykenJmSqPuk*. If I only want Steven to be able to view the contents of this file, I'll create a directory named after his public key ID, encrypt the file using Steven's public key, and add it to the directory named after his pubkey. Finally I'll upload entire directory to IPFS and add the resulting hashes to the *blackswan* blockchain.
 
 ```
@@ -207,7 +212,7 @@ with open(encryped_file_path, 'rb') as f:
 ## Contribute
 ---
 ### Use cases
-I envisioned DDASH as a better way for medical and life science researchers to collaborate and share data. If you or your organization use DDASH to do something that would otherwise be impossible using a distributed system, please share your experience and help others learn how they could do the same! 
+If you or your organization use DDASH to do something that would otherwise be impossible using a centralized system, please share your experience!
 
 ### Bug reports
 You can submit bug reports using the [GitHub issue tracker](https://github.com/osmode/ddash/issues).
@@ -217,4 +222,9 @@ Pull requests are welcome.
 
 ### Miners
 The strength of a distributed network lies in distributed computing power. You can strengthen the DDASH network by running a *blackswan* network node (and earn crytographic tokens in return). See above for details.
+
+## License
+---
+MIT License (see *LICENSE* file for details).
+
 
