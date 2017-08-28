@@ -2,6 +2,7 @@
 
 Omar Metwally, MD
 UCSF Medical Center, Department of Clinical Informatics
+
 ---
 ## Description
 DDASH is a distributed networking permissions manager running on the Interplanetary File System ([IPFS](https://github.com/ipfs/ipfs)) and [Ethereum](https://www.ethereum.org). It utilizes the web3.py and ipfsapi python modules, among others.
