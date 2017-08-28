@@ -3,6 +3,7 @@
 Copyright (C) 2017  [Omar Metwally, MD](https://omarmetwally.wordpress.com) 
 
 Twitter: [@osmode](https://www.twitter.com/osmode)
+
 Email: [omar.metwally@gmail.com](mailto:omar.metwally@gmail.com)
 
 UCSF Medical Center, Department of Clinical Informatics
