@@ -26,6 +26,10 @@ class User:
 		self.key = None
 		self.users = {}
 
+                self.load_profile() 
+
+        	
+        def load_profile():
 		# an identities.kc file (located in workdir) 
 		# associates aliases with PGP pubkey fingerpints
 		# check to see if one already exists on loading
@@ -33,7 +37,9 @@ class User:
 			with open(self.identities_path,'rb') as f:
 				print "File identities.pkl found in: "+identities_path
 				self.users = pickle.load(f)
+                        
                         print "Loaded user: \'"+self.users.keys()[0]
+                        import_result =self.gpg.recv_keys('pgp.mit.edu',self.users.key['fingerprint']
 
                 if os.path.isfile(self.keypair_path):
                     key_data = open('mykeyfile.asc').read()
@@ -41,12 +47,16 @@ class User:
 
 		    print "Loaded keypair file \'keypair.asc\'"
 
-        	
+
+                return True
+
+
+
 	def new_keypair(alias,key_type="RSA",key_length=1024):
 		self.input_data = gpg.gen_key_input(key_type, key_length)
 		self.key = self.gpg.gen_key(input_data)
 
-		self.users[alias] = self.key
+		self.users[alias] = self.key['fingerprint']
 		self.save_user()
 
                 return "Created user with pubkey fingerprint: "+self.users['alias']
@@ -64,8 +74,5 @@ class User:
 		with open(self.identities_path,'wb') as f:
 			pickle.dump(self.users,f,pickle.HIGHEST_PROTOCOL)
 
-	def key_found():
-		public_keys = gpg.list_keys()
-		if len(public_keys) ==0:
-			
-			
+                self.gpg.send_keys('pgp.mit.edu',self.keys.fingerprint) 
+
