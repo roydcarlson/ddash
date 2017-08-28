@@ -105,4 +105,77 @@ Mining difficulty is currently very easy (0x00001) on the blackswan network. Go 
 geth --verbosity 4 --datadir /Users/breitkopf/Desktop/blackswan/data --networkid 4828 --port 30303 --rpc 104.236.141.200 --rpcport 8545  --mine console
 ```
 
+## Permissions management 
+Data on the IPFS network cannot be removed and can be accessed by anyone who has your content hash. DDASH utilizes PGP keypair encryption to control permissions. The above examples demonstrated how to share data at IPFS address *QmRmE1vnc7mbEiqQv5SjrW3ctAmXXt4MQqbykenJmSqPuk*. If I only want Steven to be able to view the contents of this file, I'll create a directory named after his public key ID, encrypt the file using Steven's public key, and add it to the directory named after his pubkey. Finally I'll upload entire directory to IPFS and add the resulting hashes to the *blackswan* blockchain.
+
+```
+pythoni
+>>> import gnupg
+# set up your working directory
+>>> workingdir = '/ddash'
+>>> gpg = gnupg.GPG(gnupghome=workingdir)
+
+# list PGP keys on your machine
+>>> gpg.list_keys()  
+
+# create PGP key
+>>> input_data = gpg.gen_key_input(key_type="RSA",key_length=1024)
+>>> key = gpg.gen_key(input_data)
+>>> print key
+
+# save keypair to file *mykeyfile.asc* 
+>>> ascii_armored_public_keys  = gpg.export_keys(str(key))
+>>> ascii_armored_private_keys = gpg.expoert_keys(str(key),True)
+>>> with open('mykeyfile.asc', 'w') as f:
+        f.write(ascii_armored_public_keys)
+        f.write(ascii_armored_private_keys)
+
+# save public key to public PGP server
+gpg.send_keys('pgp.mit.edu',key.fingerprint)
+
+# receive key from keyserver
+import_result = gpg.recv_keys('pgp.mit.edu',key.fingerprint)
+gpg.list_keys()
+
+# list keys
+gpg = gnupg.GPG(gnupghome=workdir)
+public_keys = gpg.list_keys(c_keys = gpg.list_keys()
+public_fingerprint = public_keys[0]['fingerprint']
+private_keys = gpg.list_keys(True)
+print 'public keys:'
+pprint(public_keys)
+print 'private keys:'
+pprint(private_keys))
+
+# import keys from local file
+key_data = open('mykeyfile.asc').read()
+import_result = gpg.import_keys(key_data)
+print import_result.results
+
+# encrypt file using a public key fingerprint
+
+encrypted_file_path = workdir+'/stevens_pubkey_id/my-encrypted-file.gpg'
+
+with open('/path/to/experimentData.csv','rb') as f:
+    status = gpg.encrypt_file(
+    f, recipients=[public_fingerprint],
+    output=encrypted_file_path) 
+
+    print 'ok: ', status.ok
+    print 'status: ', status.status
+    print 'stderr: ', status.stderro
+
+# decrypt file
+
+decrypted_file_path = '/Users/steven/Desktop/decrypted'
+decrypted_file_path += '/my-decrypted-file.gpg'
+
+with open(encryped_file_path, 'rb') as f:
+    status = gpg.decrypt_file(f,
+    output = decrypted_file_path)
+
+    print 'ok: ',status.ok
+    print 'status:', status.status
+    print 'stderr: ',status.stderr
+```
 
