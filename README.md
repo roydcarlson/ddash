@@ -1,5 +1,14 @@
 # Distributed Data Sharing Hyperledger (DDASH)
 
+             _____  _____           _____ _    _ 
+            |  __ \|  __ \   /\    / ____| |  | |
+            | |  | | |  | | /  \  | (___ | |__| |
+            | |  | | |  | |/ /\ \  \___ \|  __  |
+            | |__| | |__| / ____ \ ____) | |  | |
+            |_____/|_____/_/    \_\_____/|_|  |_|
+                                             
+:stars: :rocket: :stars: :hospital: :rocket: :stars
+
 Copyright (C) 2017  [Omar Metwally, MD](https://omarmetwally.wordpress.com) 
 
 Twitter: [@osmode](https://www.twitter.com/osmode)
@@ -7,6 +16,7 @@ Twitter: [@osmode](https://www.twitter.com/osmode)
 Email: [omar.metwally@gmail.com](mailto:omar.metwally@gmail.com)
 
 UCSF Medical Center, Department of Clinical Informatics
+
 
 ---
 ## Description
