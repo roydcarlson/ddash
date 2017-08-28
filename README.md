@@ -7,7 +7,7 @@
             | |__| | |__| / ____ \ ____) | |  | |
             |_____/|_____/_/    \_\_____/|_|  |_|
                                              
-:stars: :rocket: :stars: :hospital: :rocket: :stars
+        :earth_americas: :rocket: :stars: :rocket: :earth_asia: :rocket: :stars: :rocket: :stars: :rocket: :eart_africa: 
 
 Copyright (C) 2017  [Omar Metwally, MD](https://omarmetwally.wordpress.com) 
 
