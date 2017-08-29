@@ -223,8 +223,9 @@ Pull requests are welcome.
 ### Miners
 The strength of a distributed network lies in distributed computing power. You can strengthen the DDASH network by running a *blackswan* network node (and earn crytographic tokens in return). See above for details.
 
+
 ## Acknowledgements
-I'm grateful to my mentor, Dr. David Avrin (UCSF Medical Center), for his unwavering support,
+I'm grateful to my mentor, Dr. David Avrin (UCSF Medical Center), for his support,
 
 to my friend Steven Truong (UC Berkeley), for his contributions and feedback,
 
