@@ -64,7 +64,7 @@ class Interface:
         result = self.api.add(filepath)
         if result:
             print "'"+result['Name']+"' was uploaded to IPFS with hash:\n "+result['Hash']
-            return 0
+            return result['Name'],result['Hash']
 
         print "Failed to upload file "+str(filepath)+" to IPFS"
         return 1
