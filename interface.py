@@ -27,7 +27,7 @@ class Interface:
         
         self.tx = {}
 
-        print "Welcome to the DDASH interface manager. Please make sure you have IPFS daemon and an Ethereum client running on your machine."
+        print "Welcome to the DDASH interface manager."
 
     def load_contract(self,abi=None,sender_address="0xafc473881370c6be639ac259e6f36cdc86b6a778",contract_address="0xadb16223621e10d0864ff5df8d4ff5c686ca87bb"):
 
@@ -43,6 +43,17 @@ class Interface:
                 print "You are now interfacing with contract at address "+contract_address
 
 
+
+    def sanity_check(self):
+        if not (self.api):
+           print "I don't see IPFS running. Please make sure IPFS daemon is running first."
+           return 1
+        if not (self.blockNumber):
+            print "I don't see geth running. Please run the go Ethereum client in the background."
+            return 1
+        if self.api and self.blockNumber:
+            print "IPFS and geth appear to be running."
+            return 0
 
     def random(self):
         assert(self.contract)

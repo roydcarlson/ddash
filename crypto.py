@@ -23,17 +23,18 @@ class PGPUser:
 		self.identities_path = self.workdir+'/'+self.identities_filename
                 self.keypair_path = self.workdir+'/'+self.keypair_filename
 		self.gpg = gnupg.GPG(gnupghome=workdir)
-		self.keys = []
+		self.keys = self.gpg.list_keys() 
                 self.key_index = 0
-
+                self.file_to_upload = None
+                self.recipient_pubkey_fingerprint = None
         	
         # check if PGP keys present on machine
         def check_keys(self):
-           self.keys = self.gpg.list_keys()
+           #self.keys = self.gpg.list_keys()
            if len(self.keys) > 0: 
                print "The following PGP keys were found: "
                for index,key in enumerate(self.keys):
-                   print "key "+str(index)+": "+key['keyid'] 
+                   print "key "+str(index)+", keyid: "+key['keyid']+", fingerprint: ",key['fingerprint'] 
                return self.keys
            print "No PGP keys were found."
            return 1
@@ -44,16 +45,18 @@ class PGPUser:
             assert(index < len(self.keys))
 
             self.key_index = index
-            print "You're now using keyid "+str(self.keys[self.key_index])
+            print "You're now using keyid "+str(self.keys[self.key_index]['keyid'])
 
         def delete_key(self,index):
             assert(len(self.keys) > 0)
             assert(index < len(self.keys))
 
             fp = self.keys[index]['fingerprint']
+            print "Deleting private key "+str(index)+"..."
             print str(self.gpg.delete_keys(fp,True))  # delete private key
+            print "Deleting public key "+str(index)+"..."
             print str(self.gpg.delete_keys(fp))       # delete pubkey
-        
+            return 0
 
         def load_profile(self):
 		# an identities.kc file (located in workdir) 
@@ -104,3 +107,88 @@ class PGPUser:
                 '''
 
                 self.gpg.send_keys('pgp.mit.edu',self.keys[self.key_index]['fingerprint'])
+
+        
+        def set_file(self,filepath):
+            if not filepath: 
+                print "No filepath specified."
+                return 1
+            if os.path.isfile(filepath):
+                self.file_to_upload = filepath
+                "You're now working with "+filepath
+                return 0
+            else:
+                print "Invalid filepath."
+
+            return 1
+
+        def download_key(self, keyid, server_name = 'pgp.mit.edu'):
+            try:
+                self.gpg.recv_keys(server_name,keyid)
+                print "Successfully downloaded keyid "+str(keyid)+" from '"+str(server_name)+"'."
+                return 0
+            except:
+                print "Unable to download keyid "+str(keyid)+" from '"+server_name+"'."
+                return 1
+
+        def set_recipient(self,public_fingerprint):
+            found = False
+            if len(self.keys)==0:
+                print "Your keychain has no public keys. Please use download_key(keyid, server_name) to download this pubkey from a PGP server."
+                return 1
+            for k in self.keys:
+                if public_fingerprint in k['fingerprint']: found = True
+
+            if not found:
+                print "Your keychain does not contain public key fingerprint "+public_fingerprint+". Please download this pubkey using method download_key(keyid, server_name)."
+                return 1
+
+            self.recipient_pubkey_fingerprint = public_fingerprint
+            "Recipient set to "+public_fingerprint
+            return 0
+
+        def get_recipient(self):
+            if not self.recipient_pubkey_fingerprint:
+                print "No recipient pubkey fingerprint selected. All uploaded files will be made public."
+                return "public"
+            print self.recipient_pubkey_fingerprint
+            return self.recipient_pubkey_fingerprint
+        
+        def delete_last_encrypted(self):
+            if not self.last_encrypted_filepath:
+                print "No recently encrypted files found."
+                return 1
+            os.remove(self.last_encrypted_filepath)
+            return 0
+
+        def encrypt_with_key(self, recipient_pubkey_fingerprint,encrypted_output=None):
+            if not encrypted_output: 
+                print "Encrypted files will be saved to: ",self.workdir
+                encrypted_output = self.workdir
+
+            if not self.file_to_upload:
+                print "No file selected. Please use set_file(filepath) method to specify a file to upload."
+                return 1
+
+            if not self.recipient_pubkey_fingerprint:
+                print "No recipient pubkey fingerprint selected. All uploaded files will be made public."
+                return 1
+
+            print "Encrypting "+self.file_to_upload+" with pubkey fingerprint "+recipient_pubkey_fingerprint+"..."
+            with open(self.workdir,'rb') as f:
+                status = self.gpg.encrypt_file(f, recipients=[recipient_pubkey_fingerprint], output = encrypted_output)
+
+                print "status: ", status.status
+                print "stderr: ",status.stderr
+
+            self.last_encrypted_filepath = encrypted_output
+
+        def decrypt(self,encrypted_file_location, output_filepath):
+            print "Decrypting file "+encrypted_file_location+"..."
+            with open(encrypted_file_location,'rb') as f:
+                status = gpg.decrypt_file(f,
+                    output=output_filepath)
+                print "status: ",status.status
+                print "stderr: ",status.stderr
+            
+            print "Successfully saved decrypted file to ",output_filepath
