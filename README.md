@@ -90,7 +90,8 @@ python main.py
                                                                 
     ::: Distributed Data Sharing Hyperledger :::
     https://github.com/osmode/ddash
-                                                                         Welcome to the DDASH Command Line Interface.
+
+    Welcome to the DDASH Command Line Interface.
 
 
 [1]  ddash> new key
