@@ -33,7 +33,7 @@ Our goals are to:
 
 ## Ethereum network
 ---
-DDASH currently runs on the *blackswan* private Ethereum network at 104.236.141.200.
+DDASH currently runs on the *blackswan* private Ethereum network at 101.102.103.104.
 
 ## Prerequisites
 ---
@@ -64,11 +64,11 @@ bootnode --nodekey=boot.key
 
 In order to use the *web3.py* and *ipfs* wrappers, you'll need to run *geth* and ipfs daemons in the background, respectively:
 ```
-geth --verbosity 1 --datadir /root/blackswan/data --networkid 4828 --port 30303 --rpcapi="db,eth,net,web3,personal,web3" --rpc 104.236.141.200 --rpcport 8545  console 
+geth --verbosity 1 --datadir /root/blackswan/data --networkid 4828 --port 30303 --rpcapi="db,eth,net,web3,personal,web3" --rpc 101.102.103.104 --rpcport 8545  console 
 ```
 Be very careful when enabling RPC while your accounts are unlocked. This can lead to Ethereum wallet attacks, hence the warning above about keeping your development environment completely separate from any real Ether you might own.
 
-The above command starts the go Ethereum client on your local machine and attempts to connect to the blackswan server at 104.236.141.200. Remember to set your genesis block according to the above directions. Trying to join this network with a different genesis block (such as the default genesis block) will not work.
+The above command starts the go Ethereum client on your local machine and attempts to connect to the blackswan server at 101.102.103.104. Remember to set your genesis block according to the above directions. Trying to join this network with a different genesis block (such as the default genesis block) will not work.
 
 Then open a new terminal window or tab and start the ifps daemon:
 ```
@@ -118,7 +118,7 @@ The above commands
 ---
 Mining difficulty is currently very easy (0x00001) on the blackswan network. Go ahead and make a few million Ether by running:
 ```
-geth --verbosity 4 --datadir /Users/breitkopf/Desktop/blackswan/data --networkid 4828 --port 30303 --rpc 104.236.141.200 --rpcport 8545  --mine console
+geth --verbosity 4 --datadir /Users/breitkopf/Desktop/blackswan/data --networkid 4828 --port 30303 --rpc 101.102.103.104 --rpcport 8545  --mine console
 ```
 
 ## Permissions management 
