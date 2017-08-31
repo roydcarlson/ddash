@@ -78,6 +78,7 @@ class PGPUser:
 
 		    print "Loaded keypair file \'keypair.asc\'"
 
+                self.keys = self.gpg.list_keys() or [] 
 
                 return True
 
