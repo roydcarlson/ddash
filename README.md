@@ -89,8 +89,7 @@ python main.py
        |_____/|_____/_/    \_\_____/|_|  |_|
                                                                 
     ::: Distributed Data Sharing Hyperledger :::
-    Copyright (C) 2017 Omar Metwally, MD
-                                                                         omar.metwally@gmail.com
+    https://github.com/osmode/ddash
                                                                          Welcome to the DDASH Command Line Interface.
 
 
