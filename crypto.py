@@ -1,9 +1,8 @@
 '''
+
 :::  crypto.py 				        :::
 ::: Easy gnupg keypair encryption/decryption    :::
-::: Author:  Omar Metwally, MD		        :::
-::: omar.metwally@gmail.com		        :::
-::: MIT License				        :::
+
 '''
 
 import gnupg

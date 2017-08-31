@@ -1,9 +1,6 @@
 '''
 :::  interface.py                                   :::
     ::: IPFS <> blockchain interface                :::
-    ::: Author:  Omar Metwally, MD                  :::
-    ::: omar.metwally@gmail.com                     :::
-    ::: MIT License                                 :::
 '''
 
 import ipfsapi, os, json
