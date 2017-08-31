@@ -66,6 +66,12 @@ while 1:
         value = get_value_from_index(result, 2,convert_to="string")
         u.set_file(value)
 
+    elif ('which file' in result) or ('get file' in result):
+        u.get_current_file()
+
+    elif ('which key' in result):
+        u.get_current_key() 
+
     elif ('encrypt' in result):
         recipient_pubkey_fingerprint = get_value_from_index(result,1)
         u.encrypt_with_key(recipient_pubkey_fingerprint)
@@ -74,7 +80,19 @@ while 1:
         if not u.file_to_upload: 
             print "No file selected. Please select file using method PGPUser.set_file(filepath)."
         else:
-            i.upload(u.file_to_upload)
-            value = get_value_from_index(result, 1, convert_to="string")
+            filename,filehash = i.upload(u.file_to_upload)
+            description = get_value_from_index(result, 1, convert_to="string")
+            print "Attempting to push the following record to the blockchain:"
+            print "filename: ",(filename or description)
+            print "filehash: ",filehash
+            print "sender pubkey id",u.keys[u.key_index]['fingerprint']
+            print "recipient pubkey id",u.get_recipient()
+
+            try:
+                i.push_ipfs_hash_to_chain(filehash,(filename or description),u.keys[u.key_index]['fingerprint'],u.get_recipient()) 
+            except ValueError:
+                print "Your Ethereum account must be unlocked."
+            except:
+                print "Unable to write to blockchain."
 
 

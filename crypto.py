@@ -7,7 +7,7 @@
 '''
 
 import gnupg
-import os.path
+import os.path, random
 
 class PGPUser:
 	""" Instantiate PGP user """
@@ -18,12 +18,13 @@ class PGPUser:
 	"""
 	def __init__(self, workdir='/gnupg'):
 		self.workdir = workdir
+                self.encrypted_file_store = self.workdir + '/encrypted_file_store'
 		self.identities_filename = "identity.pkl"
                 self.keypair_filename = "keypair.asc"
 		self.identities_path = self.workdir+'/'+self.identities_filename
                 self.keypair_path = self.workdir+'/'+self.keypair_filename
 		self.gpg = gnupg.GPG(gnupghome=workdir)
-		self.keys = self.gpg.list_keys() 
+		self.keys = self.gpg.list_keys() or [] 
                 self.key_index = 0
                 self.file_to_upload = None
                 self.recipient_pubkey_fingerprint = None
@@ -147,6 +148,25 @@ class PGPUser:
             "Recipient set to "+public_fingerprint
             return 0
 
+        def get_current_key(self):
+            if len(self.keys) ==0:
+                print "No key selected. Try methods Interface.check_keys and Interface.set_key(index)"
+                return 1
+
+            assert(self.key_index < len(self.keys))
+
+            curr_key = self.keys[self.key_index]
+            curr_key_id = curr_key['keyid'] 
+            print "You are using keyid ",curr_key_id
+            return curr_key_id 
+
+        def get_current_file(self):
+            if not self.file_to_upload:
+                print "No file selected. Use method PGPUser.set_file(filepath) to select a file."
+                return 1
+            print "You are working with file ",self.file_to_upload,". Use method PGPUser.set_file(filepath) to change current file."
+            return self.file_to_upload
+
         def get_recipient(self):
             if not self.recipient_pubkey_fingerprint:
                 print "No recipient pubkey fingerprint selected. All uploaded files will be made public."
@@ -161,10 +181,13 @@ class PGPUser:
             os.remove(self.last_encrypted_filepath)
             return 0
 
-        def encrypt_with_key(self, recipient_pubkey_fingerprint,encrypted_output=None):
+        def generate_nonce(self,length=8):
+            return ''.join([str(random.randint(0, 9)) for i in range(length)])
+
+        def encrypt_with_key(self, encrypted_output=None):
             if not encrypted_output: 
                 print "Encrypted files will be saved to: ",self.workdir
-                encrypted_output = self.workdir
+                encrypted_output = self.encrypted_file_store+'/'+self.generate_nonce()
 
             if not self.file_to_upload:
                 print "No file selected. Please use set_file(filepath) method to specify a file to upload."
@@ -174,14 +197,26 @@ class PGPUser:
                 print "No recipient pubkey fingerprint selected. All uploaded files will be made public."
                 return 1
 
-            print "Encrypting "+self.file_to_upload+" with pubkey fingerprint "+recipient_pubkey_fingerprint+"..."
-            with open(self.workdir,'rb') as f:
-                status = self.gpg.encrypt_file(f, recipients=[recipient_pubkey_fingerprint], output = encrypted_output)
+            if self.recipient_pubkey_fingerprint:
+                print "Encrypting "+self.file_to_upload+" with pubkey fingerprint "+self.recipient_pubkey_fingerprint+"..."
 
-                print "status: ", status.status
-                print "stderr: ",status.stderr
+                print "Attempting to encrypt using recipients=",self.recipient_pubkey_fingerprint," and output filepath ",encrypted_output
 
-            self.last_encrypted_filepath = encrypted_output
+                if not (os.path.isdir(self.encrypted_file_store)):
+                        print "Directory ",self.encrypted_file_store," does not exist. Attempting to create..."
+                        os.makedirs(self.encrypted_file_store)
+
+
+                with open(self.file_to_upload,'rb') as f:
+                    status = self.gpg.encrypt_file(f, recipients=[self.recipient_pubkey_fingerprint], output = encrypted_output)
+
+                    print "status: ", status.status
+                    print "stderr: ",status.stderr
+
+                self.file_to_upload = encrypted_output
+                self.last_encrypted_filepath = encrypted_output
+
+                return 0
 
         def decrypt(self,encrypted_file_location, output_filepath):
             print "Decrypting file "+encrypted_file_location+"..."

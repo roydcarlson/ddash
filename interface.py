@@ -63,10 +63,10 @@ class Interface:
 
         return self.contract.transact(self.tx).randomGen(i)
 
-    def heyo():
+    def heyo(self):
         assert(self.contract)
 
-        i = randomint(0,4)
+        i = randint(0,4)
         print self.contract.call().greet_omar(i)
         return 0
 
@@ -76,7 +76,7 @@ class Interface:
         assert(self.api)
         
         self.last_hash_added = result = self.api.add(filepath)
-        if result:
+        if self.last_hash_added:
             print "'"+result['Name']+"' was uploaded to IPFS with hash:\n "+result['Hash']
             return result['Name'],result['Hash']
 
@@ -84,14 +84,26 @@ class Interface:
         return 1
 
 
-    def save_ipfs_hash_to_chain(self,ipfs_hash,description,recipient_id,sender_id="public"):
+    def push_ipfs_hash_to_chain(self,ipfs_hash,description,sender_id,recipient_id):
         assert(self.contract)
         assert(self.tx)
         if not self.last_hash_added: 
             print "You must upload a file to IPFS first. Try Interface.upload(filepath)."
             return 1
+        if not (ipfs_hash): 
+            print "No IPFS hash specified. You must specify an IPFS hash to add to the blockchain."
+            return 1
+        if not (description):
+            print "No description provided. You must describe the IPFS hash you're adding to the blockchain."
+            return 1
+        if not sender_id:
+            print "No sender provided. You must specify a sender's pubkey id." 
+            return 1
+        if not recipient_id:
+            print "No recipient provided. YOu must specify the recipient's pubkey id (if the resource is encrypted) or \'public\'."
+            return 1
 
-        tx_hash = self.contract(self.tx).push_record(ipfs_hash,description,recipient_id,sender_id)
+        tx_hash = self.contract.transact(self.tx).push_record(ipfs_hash,description,recipient_id,sender_id)
 
         print "New record added to blockchain. Object at IPFS hash "+ipfs_hash+" was shared with "+recipient_id+" by user "+sender_id+"."
 
