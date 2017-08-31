@@ -94,23 +94,34 @@ python main.py
     Welcome to the DDASH Command Line Interface.
 
 
-[1]  ddash> new key
-[2]  ddash> show keys
+[1]  sanity check
+     ddash> IPFS and geth appear to be running.
+[2]  ddash> new key
+[3]  ddash> show keys
         ...
-[3]  ddash> use key 0
-[4]  ddash> set recipient your_recipient's_pubkey_id 
-[5]  ddash> set file /path/to/clinical/trial/data.csv
-[6]  ddash> encrypt
-[7]  ddash> upload
+[4]  ddash> use key 0
+[5]  ddash> set recipient your_recipient's_pubkey_id 
+[6]  ddash> set file /path/to/clinical/trial/data.csv
+[7]  ddash> encrypt
+[8]  ddash> upload
 ```
-The above commands 
-[1]  generate a new PGP keypair 
-[2]  list all PGP keypairs on your machine
-[3]  uses the first (index 0) keypair as your identity
-[4]  specifies an intended recipient's public key
-[5]  specifies file you want to upload to IPFS
-[6]  encrypts the file using recipient's public key fingerprint
-[7]  uploads the file to IPFS and creates transaction containing the hash, user id of the person who uploaded the file, and recipient's public key id (or "public" indicating that it's not encrypted).
+The above commands:
+
+[1]  check if IPFS daemon and Go Ethereum client are running
+
+[2]  generate a new PGP keypair 
+
+[3]  list all PGP keypairs on your machine
+
+[4]  uses the first (index 0) keypair as your identity
+
+[5]  specify an intended recipient's public key
+
+[6]  specify file you want to upload to IPFS
+
+[7]  encrypt the file using recipient's public key fingerprint 
+
+[8]  upload the file to IPFS and create transaction containing the hash, user id of the person who uploaded the file, and recipient's public key id (or "public" indicating that it's not encrypted).
 
 
 
