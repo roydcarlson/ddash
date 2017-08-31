@@ -21,7 +21,7 @@ Despite the wealth of data produced by academic institutions, research labs, hos
 
 ### In its usual siloed state, data is a liability rather than an asset.
 
-### *DDASH turns data into digital assets.*
+### DDASH turns data into digital assets.
 
 No longer confined to a single machine, data hosted on the IPFS network flows perputually through network nodes, rendering it persistent and rapidly accessible. Permissions are managed via PGP keypair encryption and stored on the Ethereum blockchain. Network participants are rewarded with cryptographic tokens to incentivize generation and dissemination of knowledge, effective data sharing, and growth of the network.
 
