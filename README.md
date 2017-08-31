@@ -94,8 +94,8 @@ python main.py
     Welcome to the DDASH Command Line Interface.
 
 
-[1]  sanity check
-     ddash> IPFS and geth appear to be running.
+[1]  ddash> sanity check
+     IPFS and geth appear to be running.
 [2]  ddash> new key
 [3]  ddash> show keys
         ...
