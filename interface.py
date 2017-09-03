@@ -26,7 +26,7 @@ class Interface:
 
         print "Welcome to the DDASH interface manager."
 
-    def load_contract(self,abi=None,sender_address="0xafc473881370c6be639ac259e6f36cdc86b6a778",contract_address="0xadb16223621e10d0864ff5df8d4ff5c686ca87bb"):
+    def load_contract(self,abi=None,sender_address="0xe4b9bec3a1f1c8b9075f078dff51eb1359e9e516",contract_address="0xe63e99006e2bfd737f410694beaf5a7d8d412069"):
 
         self.tx['to'] = contract_address
         self.tx['from'] = sender_address
@@ -100,7 +100,7 @@ class Interface:
             print "No recipient provided. YOu must specify the recipient's pubkey id (if the resource is encrypted) or \'public\'."
             return 1
 
-        tx_hash = self.contract.transact(self.tx).push_record(ipfs_hash,description,recipient_id,sender_id)
+        tx_hash = self.contract.transact(self.tx).add_record(ipfs_hash,description,recipient_id,sender_id)
 
         print "New record added to blockchain. Object at IPFS hash "+ipfs_hash+" was shared with "+recipient_id+" by user "+sender_id+"."
 

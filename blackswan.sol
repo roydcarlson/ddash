@@ -1,4 +1,4 @@
-pragma solidity ^0.4.0;
+prgma solidity ^0.4.0;
 contract BlackSwan {
 
 	struct Record {
@@ -9,7 +9,7 @@ contract BlackSwan {
         string shared_by_fingerprint;
 	}
 
-    Record[] records;
+    mapping (string => Record) records;
 
 	// keep track of stack sizes
 	uint num_records;
@@ -45,20 +45,17 @@ contract BlackSwan {
 	
 	);
 
-	function push_record(string _ipfs_hash, string _description,
+	function add_record(string _ipfs_hash, string _description,
 	    string _shared_with_fingerprint, string _shared_by_fingerprint) {
         
-		// prevent duplicate entries
-		
-		records.push( Record(
+        records[_ipfs_hash] = Record(
 		    {
 		        id: num_records+1,
 		        ipfs_hash: _ipfs_hash,
 		        description: _description,
 		        shared_with_fingerprint: _shared_with_fingerprint,
 		        shared_by_fingerprint: _shared_by_fingerprint
-		    })
-		);
+		    });
 
 		num_records+=1;
 		
@@ -78,21 +75,14 @@ contract BlackSwan {
 	}
 	*/
 
-	// unlike pop_administration, get_administration retrieves a record 
-	// by its row id number
-	// argument _row starts from 0
-	function get_record(uint _row) public returns (uint _id, string _ipfs_hash, string _description,
+	// retrieve record using IPFS hash (input)
+	// returns Record elements, namely id, ipfs hash, description, 
+	// shared_by_fingerprint and shared_with_fingerprint
+	function get_record(string _ipfs_hash) public returns (uint _id, string _hash, string _description,
 	    string _shared_by_fingerprint, string _shared_with_fingerprint) {
-	    
-
-		// note that this assumes that argument _id is equal to the row
-		// max legal _row value is administrations.length
-		
-        require(_row>=0);
-        require(_row < records.length);
-        
+	  
 		// if 'records' is empty, return null object
-		if (records.length ==0 ) {
+		if (num_records == 0 ) {
 			_id = 0;
 			_ipfs_hash="none";
 			_description="none";
@@ -100,14 +90,16 @@ contract BlackSwan {
 			_shared_by_fingerprint="none";
 
 		} else {	
-		    _id = records[_row].id;
-		    _ipfs_hash = records[_row].ipfs_hash;
-		    _description = records[_row].description;
-		    _shared_with_fingerprint = records[_row].shared_with_fingerprint;
-		    _shared_by_fingerprint = records[_row].shared_by_fingerprint;
+		    Record r = records[_ipfs_hash];
+		    
+		    _id = r.id;
+		    _hash = r.ipfs_hash;
+		    _description = r.description;
+		    _shared_with_fingerprint = r.shared_with_fingerprint;
+		    _shared_by_fingerprint = r.shared_by_fingerprint;
 		    
 		}
-		return (_id,_ipfs_hash,_description,_shared_with_fingerprint,_shared_by_fingerprint);
+		return (_id,_hash,_description,_shared_with_fingerprint,_shared_by_fingerprint);
 		
 	}
 
@@ -123,4 +115,5 @@ contract BlackSwan {
 			}
 	}
 }		
+
 
