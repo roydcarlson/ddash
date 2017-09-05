@@ -1,4 +1,4 @@
-prgma solidity ^0.4.0;
+pragma solidity ^0.4.0;
 contract BlackSwan {
 
 	struct Record {
@@ -11,8 +11,8 @@ contract BlackSwan {
 
     mapping (string => Record) records;
 
-	// keep track of stack sizes
-	uint num_records;
+	// keep track of stack sizes 
+	uint num_records; 
 	uint records_index; // pointer to current stack element
 
 	address public owner;
