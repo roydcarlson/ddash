@@ -46,7 +46,7 @@ The technologies used here are still in alpha. If you own cryptoassets such as B
 ---
 You should have the [Go Ethereum client](https://github.com/ethereum/go-ethereum) installed on your machine, and install the *web3.py* and *py-ipfs* Python packages. The instructions here are for machines running Ubuntu 16.04. [This tutorial](https://omarmetwally.wordpress.com/2017/07/25/how-to-create-a-private-ethereum-network/) covers basic Ethereum networking.
 
-You will need an Ethereum node connected to the blackswan private network and the ability to lock/unlock this account to send transactions.
+You will need an Ethereum node connected to the blackswan private network and the ability to lock/unlock this account to send transactions. Be sure to unlock your account before using DDASH, and be aware that the Go Ethereum client periodically locks your account as a security measure.
 
 Start by creating these directories:
 ```
@@ -55,7 +55,7 @@ mkdir /home/omarmetwally/ucsfnet/gnupg
 mkdir /home/omarmetwally/ucsfnet/data
 ```
 
-To connect to the *blackswan* network, you'll need to use the same genesis block defined in *genesis.json*. Move this file to `/root/blackswan` and set your genesis block (you only need to do this once, and you need to install the Ethereum go client *geth* and Ethereum developer tools first):
+To connect to the *blackswan* network, you'll need to use the same genesis block defined in *genesis.json*. Move this file to `/home/omarmetwally/ucsfnet/` and set your genesis block (you only need to do this once, and you need to install the Ethereum go client *geth* and Ethereum developer tools first):
 ```
 geth --datadir=/home/omarmetwally/ucsfnet/data init /home/omarmetwally/ucsfnet/genesis.json
 bootnode --genkey=boot.key
