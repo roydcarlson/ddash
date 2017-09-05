@@ -106,22 +106,34 @@ python main.py
 [9]   ddash> set file /path/to/clinical/trial/data.csv
 [10]  ddash> encrypt
 [11]  ddash> upload
-[12] ddash> checkout QmUahy9JKE6Q5LSHArePowQ91fsXNR2yKafTYtC9xQqhwP
+[12]  ddash> checkout QmUahy9JKE6Q5LSHArePowQ91fsXNR2yKafTYtC9xQqhwP
 ```
 The above commands:
 
 [1]  check if IPFS daemon and Go Ethereum client are running
+
 [2]  specify working directory (need to have read/write permission)
+
 [3]  generate a new PGP keypair 
+
 [4]  list all PGP keypairs on your machine
+
 [5]  uses the first (index 0) keypair as your identity
+
 [6]  list Ethereum accounts
+
 [7]  specify index of Ethereum account to use for transactions
+
 [8]  specify an intended recipient's public key
+
 [9]  upload the file to IPFS and create transaction containing the hash, user id of the person who uploaded the file, and recipient's public key id (or "public" indicating that it's not encrypted).
+
 [10] encrypt file from step [9] using public key from step [8]
+
 [11] upload file from [9] to IPFS network
+
 [12] check blockchain using IPFS has as handle 
+
 
 
 ## Mining on the *blackswan* Ethereum network
