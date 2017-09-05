@@ -96,14 +96,15 @@ python main.py
 
 [1]  ddash> sanity check
      IPFS and geth appear to be running.
-[2]  ddash> new key
-[3]  ddash> show keys
+[2]  ddash> set directory /home/osmode/ucsfnet/gnupg
+[3]  ddash> new key
+[4]  ddash> show keys
         ...
-[4]  ddash> use key 0
-[5]  ddash> set recipient your_recipient's_pubkey_id 
-[6]  ddash> set file /path/to/clinical/trial/data.csv
-[7]  ddash> encrypt
-[8]  ddash> upload
+[5]  ddash> use key 0
+[6]  ddash> set recipient your_recipient's_pubkey_id 
+[7]  ddash> set file /path/to/clinical/trial/data.csv
+[8]  ddash> encrypt
+[9]  ddash> upload
 ```
 The above commands:
 

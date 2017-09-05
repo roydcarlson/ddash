@@ -10,8 +10,6 @@ intro = r"""
    |_____/|_____/_/    \_\_____/|_|  |_|
                                              
    ::: Distributed Data Sharing Hyperledger :::
-   Copyright (C) 2017 Omar Metwally, MD
-   omar.metwally@gmail.com
 """
 def get_value_from_index(input_phrase,index,convert_to='integer'):
     input_phrase = input_phrase.split()
@@ -51,6 +49,8 @@ while 1:
     elif ('delete key' in result) or ('del key' in result):
         value = get_value_from_index(result,2) 
         u.delete_key(value)
+	u.save_user()
+	u.load_profile()
 
     elif ('new key' in result):
         u.new_keypair()
@@ -87,14 +87,15 @@ while 1:
             print "Attempting to push the following record to the blockchain:"
             print "filename: ",(filename or description)
             print "filehash: ",filehash
-            print "sender pubkey id",u.keys[u.key_index]['fingerprint']
+            #print "sender pubkey id",u.keys[u.key_index]['fingerprint']
             print "recipient pubkey id",u.get_recipient()
 
-            try:
-                i.push_ipfs_hash_to_chain(filehash,(filename or description),u.keys[u.key_index]['fingerprint'],u.get_recipient()) 
-            except ValueError:
-                print "Your Ethereum account must be unlocked."
-            except:
-                print "Unable to write to blockchain."
+            i.push_ipfs_hash_to_chain(filehash,(filename or description),u.keys[u.key_index]['fingerprint'],u.get_recipient()) 
+
+    elif ('set directory'  in result):
+	workdir = get_value_from_index(result,2,convert_to="string")
+	print "Setting directory to", workdir
+	u.set_directory(workdir)
+	
 
 

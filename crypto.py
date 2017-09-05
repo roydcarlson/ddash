@@ -28,6 +28,11 @@ class PGPUser:
                 self.file_to_upload = None
                 self.recipient_pubkey_fingerprint = None
         	
+	def set_directory(self, workdir):
+		self.workdir = workdir
+		self.gpg = gnupg.GPG(gnupghome=self.workdir)
+		self.keys = self.gpg.list_keys() or [] 
+
         # check if PGP keys present on machine
         def check_keys(self):
            #self.keys = self.gpg.list_keys()
@@ -86,6 +91,8 @@ class PGPUser:
 	def new_keypair(self,key_type="RSA",key_length=1024):
 		input_data = self.gpg.gen_key_input(key_type=key_type, key_length=key_length)
 		self.key = self.gpg.gen_key(input_data)
+		print "New keypair was generated, ",self.key
+		print "Attempting to save progress.."
 
 		self.save_user()
 
