@@ -33,6 +33,7 @@ class PGPUser:
 		self.gpg = gnupg.GPG(gnupghome=self.workdir)
 		self.keys = self.gpg.list_keys() or [] 
 
+
         # check if PGP keys present on machine
         def check_keys(self):
            #self.keys = self.gpg.list_keys()

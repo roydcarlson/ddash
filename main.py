@@ -96,6 +96,22 @@ while 1:
 	workdir = get_value_from_index(result,2,convert_to="string")
 	print "Setting directory to", workdir
 	u.set_directory(workdir)
-	
 
+    elif ('show account' in result):
+	i.show_eth_accounts()
+
+    elif ('use account' in result) or ('set account' in result):
+	account_index = get_value_from_index(result,2,convert_to="integer")
+	print "Extracted index ",account_index
+	i.set_account(account_index)
+
+    elif ('unlock' in result):
+	password = get_value_from_index(result,2,convert_to="string")
+	print "Attempting to unlock account..."
+	i.unlock_account(password)
+
+    elif ('checkout' in result):
+	ipfs_hash = get_value_from_index(result,1,convert_to="string")
+	print "Looking for this IPFS hash on the blockchain:",ipfs_hash
+	i.get_record(ipfs_hash)
 

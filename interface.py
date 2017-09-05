@@ -21,6 +21,7 @@ class Interface:
         self.web3 = Web3(HTTPProvider('http://localhost:8545'))
         self.blockNumber = self.web3.eth.blockNumber
         self.eth_accounts = self.web3.personal.listAccounts
+	self.account_index = 0
         
         self.tx = {}
 
@@ -40,6 +41,14 @@ class Interface:
                 print "You are now interfacing with contract at address "+contract_address
 
 
+
+    def show_eth_accounts(self):
+	if len(self.eth_accounts) ==0:
+		print "You have no Ethereum accounts. Create a new account by typing 'new account'"
+		return 0
+	print "I found the following Ethereum accounts:"
+	for i, acc in enumerate(self.eth_accounts):
+		print i,"\t\t",acc
 
     def sanity_check(self):
         if not (self.api):
@@ -81,6 +90,25 @@ class Interface:
         return 1
 
 
+    # retrieve entry from blockchain using ipfs hash as handle
+    def get_record(self,ipfs_hash):
+	assert(self.contract)
+        assert(self.tx)
+
+	record = self.contract.call().get_record(ipfs_hash)
+	if len(record) >0:
+		print "I found this record:"		
+		print "Row id: ",record[0]
+		print "IPFS hash: ",record[1]
+		print "Description: ",record[2]
+		print "Shared with: ",record[3]
+		print "Shared by: ",record[4]
+		
+		return record
+	else:
+		print "I didnt' find a record on the blockchain with that IPFS hash."
+	return 0
+
     def push_ipfs_hash_to_chain(self,ipfs_hash,description,sender_id,recipient_id):
         assert(self.contract)
         assert(self.tx)
@@ -105,5 +133,25 @@ class Interface:
         print "New record added to blockchain. Object at IPFS hash "+ipfs_hash+" was shared with "+recipient_id+" by user "+sender_id+"."
 
         return tx_hash
+
+    # unlock selected Ethereuma account
+    def unlock_account(self, password):
+	if len(self.eth_accounts) ==0: 
+	    print "No Ethereum account found. Create a new account by typing 'new account'"
+	else:
+	    self.web3.personal.unlockAccount(self.eth_accounts[self.account_index],password)    
+
+
+    # select Ethereum account
+    def set_account(self,index):
+	if len(self.eth_accounts) ==0:
+		print "No Ethereum account found. Create a new account by typing 'new account'"
+
+	elif index >= len(self.eth_accounts):
+		print "Invalid index."
+	else:
+		self.account_index = index
+		self.load_contract(sender_address=self.eth_accounts[self.account_index])
+		
 
 

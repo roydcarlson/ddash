@@ -33,7 +33,7 @@ Our goals are to:
 
 ## Ethereum network
 ---
-DDASH currently runs on the *blackswan* private Ethereum network at 101.102.103.104.
+DDASH currently runs on the *blackswan* private Ethereum network at 104.236.141.200.
 
 ## Prerequisites
 ---
@@ -105,6 +105,7 @@ python main.py
 [7]  ddash> set file /path/to/clinical/trial/data.csv
 [8]  ddash> encrypt
 [9]  ddash> upload
+[10] ddash> checkout QmUahy9JKE6Q5LSHArePowQ91fsXNR2yKafTYtC9xQqhwP
 ```
 The above commands:
 
