@@ -50,21 +50,21 @@ You will need an Ethereum node connected to the blackswan private network and th
 
 Start by creating these directories:
 ```
-mkdir /home/omarmetwally/ucsfnet
-mkdir /home/omarmetwally/ucsfnet/gnupg
-mkdir /home/omarmetwally/ucsfnet/data
+mkdir /home/omarmetwally/blackswan
+mkdir /home/omarmetwally/blackswan/gnupg
+mkdir /home/omarmetwally/blackswan/data
 ```
 
-To connect to the *blackswan* network, you'll need to use the same genesis block defined in *genesis.json*. Move this file to `/home/omarmetwally/ucsfnet/` and set your genesis block (you only need to do this once, and you need to install the Ethereum go client *geth* and Ethereum developer tools first):
+To connect to the *blackswan* network, you'll need to use the same genesis block defined in *genesis.json*. Move this file to `/home/omarmetwally/blackswan/` and set your genesis block (you only need to do this once, and you need to install the Ethereum go client *geth* and Ethereum developer tools first):
 ```
-geth --datadir=/home/omarmetwally/ucsfnet/data init /home/omarmetwally/ucsfnet/genesis.json
+geth --datadir=/home/omarmetwally/blackswan/data init /home/omarmetwally/blackswan/genesis.json
 bootnode --genkey=boot.key
 bootnode --nodekey=boot.key 
 ```
 
 In order to use the *web3.py* and *ipfs* wrappers, you'll need to run *geth* and ipfs daemons in the background, respectively:
 ```
-geth --verbosity 1 --datadir /home/omarmetwally/ucsfnet/data --networkid 4828 --port 30303 --rpcapi="db,eth,net,web3,personal,web3" --rpc 104.236.141.200 --rpcport 8545  console 
+geth --verbosity 1 --datadir /home/omarmetwally/blackswan/data --networkid 4828 --port 30303 --rpcapi="db,eth,net,web3,personal,web3" --rpc 104.236.141.200 --rpcport 8545  console 
 ```
 Be very careful when enabling RPC while your accounts are unlocked. This can lead to Ethereum wallet attacks, hence the warning above about keeping your development environment completely separate from any real Ether you might own.
 
@@ -96,7 +96,7 @@ python main.py
 
 [1]   ddash> sanity check
       IPFS and geth appear to be running.
-[2]   ddash> set directory /home/omarmetwally/ucsfnet/gnupg
+[2]   ddash> set directory /home/omarmetwally/blackswan/gnupg
 [3]   ddash> new key
 [4]   ddash> show keys
 [5]   ddash> use key 0
@@ -140,7 +140,7 @@ The above commands:
 ---
 Mining difficulty is currently relatively easy (1e6) on the blackswan network. Mine Ether by running: 
 ```
-geth --verbosity 4 --datadir /Users/omarmetwally/Desktop/ucsfnet/data --networkid 4828 --port 30303 --rpc 104.236.141.200--rpcport 8545  --mine console
+geth --verbosity 4 --datadir /Users/omarmetwally/Desktop/blackswan/data --networkid 4828 --port 30303 --rpc 104.236.141.200--rpcport 8545  --mine console
 ```
 
 ## Permissions management 
