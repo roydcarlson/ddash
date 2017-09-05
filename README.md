@@ -48,27 +48,27 @@ You should have the [Go Ethereum client](https://github.com/ethereum/go-ethereum
 
 You will need an Ethereum node connected to the blackswan private network and the ability to lock/unlock this account to send transactions.
 
-Start by creating these directories in your root directory:
+Start by creating these directories:
 ```
-mkdir /root/blackswan
-mkdir /root/blackswan/data
+mkdir /home/omarmetwally/ucsfnet
+mkdir /home/omarmetwally/ucsfnet/gnupg
+mkdir /home/omarmetwally/ucsfnet/data
 ```
 
 To connect to the *blackswan* network, you'll need to use the same genesis block defined in *genesis.json*. Move this file to `/root/blackswan` and set your genesis block (you only need to do this once, and you need to install the Ethereum go client *geth* and Ethereum developer tools first):
 ```
-cd /root/blackswan/data
-geth --datadir=/root/blackswan/data init /root/blackswan/genesis.json
+geth --datadir=/home/omarmetwally/ucsfnet/data init /home/omarmetwally/ucsfnet/genesis.json
 bootnode --genkey=boot.key
 bootnode --nodekey=boot.key 
 ```
 
 In order to use the *web3.py* and *ipfs* wrappers, you'll need to run *geth* and ipfs daemons in the background, respectively:
 ```
-geth --verbosity 1 --datadir /root/blackswan/data --networkid 4828 --port 30303 --rpcapi="db,eth,net,web3,personal,web3" --rpc 101.102.103.104 --rpcport 8545  console 
+geth --verbosity 1 --datadir /home/omarmetwally/ucsfnet/data --networkid 4828 --port 30303 --rpcapi="db,eth,net,web3,personal,web3" --rpc 104.236.141.200 --rpcport 8545  console 
 ```
 Be very careful when enabling RPC while your accounts are unlocked. This can lead to Ethereum wallet attacks, hence the warning above about keeping your development environment completely separate from any real Ether you might own.
 
-The above command starts the go Ethereum client on your local machine and attempts to connect to the blackswan server at 101.102.103.104. Remember to set your genesis block according to the above directions. Trying to join this network with a different genesis block (such as the default genesis block) will not work.
+The above command starts the go Ethereum client on your local machine and attempts to connect to the blackswan server at 104.236.141.200. Remember to set your genesis block according to the above directions. Trying to join this network with a different genesis block (such as the default genesis block) will not work.
 
 Then open a new terminal window or tab and start the ifps daemon:
 ```
@@ -96,46 +96,43 @@ python main.py
 
 [1]  ddash> sanity check
      IPFS and geth appear to be running.
-[2]  ddash> set directory /home/osmode/ucsfnet/gnupg
+[2]  ddash> set directory /home/omarmetwally/ucsfnet/gnupg
 [3]  ddash> new key
 [4]  ddash> show keys
-        ...
 [5]  ddash> use key 0
-[6]  ddash> set recipient your_recipient's_pubkey_id 
-[7]  ddash> set file /path/to/clinical/trial/data.csv
-[8]  ddash> encrypt
-[9]  ddash> upload
-[10] ddash> checkout QmUahy9JKE6Q5LSHArePowQ91fsXNR2yKafTYtC9xQqhwP
+[6]  ddash> show accounts
+[7]  ddash> use account 0
+[8]  ddash> set recipient your_recipient's_pubkey_id 
+[9]  ddash> set file /path/to/clinical/trial/data.csv
+[10]  ddash> encrypt
+[11]  ddash> upload
+[12] ddash> checkout QmUahy9JKE6Q5LSHArePowQ91fsXNR2yKafTYtC9xQqhwP
 ```
 The above commands:
 
 [1]  check if IPFS daemon and Go Ethereum client are running
-
-[2]  generate a new PGP keypair 
-
-[3]  list all PGP keypairs on your machine
-
-[4]  uses the first (index 0) keypair as your identity
-
-[5]  specify an intended recipient's public key
-
-[6]  specify file you want to upload to IPFS
-
-[7]  encrypt the file using recipient's public key fingerprint 
-
-[8]  upload the file to IPFS and create transaction containing the hash, user id of the person who uploaded the file, and recipient's public key id (or "public" indicating that it's not encrypted).
-
+[2]  specify working directory (need to have read/write permission)
+[3]  generate a new PGP keypair 
+[4]  list all PGP keypairs on your machine
+[5]  uses the first (index 0) keypair as your identity
+[6]  list Ethereum accounts
+[7]  specify index of Ethereum account to use for transactions
+[8]  specify an intended recipient's public key
+[9]  upload the file to IPFS and create transaction containing the hash, user id of the person who uploaded the file, and recipient's public key id (or "public" indicating that it's not encrypted).
+[10] encrypt file from step [9] using public key from step [8]
+[11] upload file from [9] to IPFS network
+[12] check blockchain using IPFS has as handle 
 
 
 ## Mining on the *blackswan* Ethereum network
 ---
-Mining difficulty is currently very easy (0x00001) on the blackswan network. Go ahead and make a few million Ether by running:
+Mining difficulty is currently relatively easy (1e6) on the blackswan network. Mine Ether by running: 
 ```
-geth --verbosity 4 --datadir /Users/breitkopf/Desktop/blackswan/data --networkid 4828 --port 30303 --rpc 101.102.103.104 --rpcport 8545  --mine console
+geth --verbosity 4 --datadir /Users/omarmetwally/Desktop/ucsfnet/data --networkid 4828 --port 30303 --rpc 104.236.141.200--rpcport 8545  --mine console
 ```
 
 ## Permissions management 
-Data on the IPFS network cannot be removed and can be accessed by anyone who has your content hash. DDASH utilizes PGP keypair encryption to control permissions. The above examples demonstrated how to share data at IPFS address *QmRmE1vnc7mbEiqQv5SjrW3ctAmXXt4MQqbykenJmSqPuk*. If I only want Steven to be able to view the contents of this file, I'll create a directory named after his public key ID, encrypt the file using Steven's public key, and add it to the directory named after his pubkey. Finally I'll upload entire directory to IPFS and add the resulting hashes to the *blackswan* blockchain.
+Data on the IPFS network cannot be removed and can be accessed by anyone who has your content hash. DDASH utilizes PGP keypair encryption to control permissions. The above examples demonstrated how to share data at IPFS address *QmRmE1vnc7mbEiqQv5SjrW3ctAmXXt4MQqbykenJmSqPuk*. If I only want Steven to be able to view the contents of this file, I'll encrypt the file using Steven's public key and upload it IPFS. The resulting IPFS hash, a description of the file, the owner, and the recipient's pubkey fingerprint (or "public") are saved on the *blackswan* blockchain.
 
 ## Contribute
 ---
