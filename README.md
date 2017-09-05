@@ -94,16 +94,16 @@ python main.py
     Welcome to the DDASH Command Line Interface.
 
 
-[1]  ddash> sanity check
-     IPFS and geth appear to be running.
-[2]  ddash> set directory /home/omarmetwally/ucsfnet/gnupg
-[3]  ddash> new key
-[4]  ddash> show keys
-[5]  ddash> use key 0
-[6]  ddash> show accounts
-[7]  ddash> use account 0
-[8]  ddash> set recipient your_recipient's_pubkey_id 
-[9]  ddash> set file /path/to/clinical/trial/data.csv
+[1]   ddash> sanity check
+      IPFS and geth appear to be running.
+[2]   ddash> set directory /home/omarmetwally/ucsfnet/gnupg
+[3]   ddash> new key
+[4]   ddash> show keys
+[5]   ddash> use key 0
+[6]   ddash> show accounts
+[7]   ddash> use account 0
+[8]   ddash> set recipient your_recipient's_pubkey_id 
+[9]   ddash> set file /path/to/clinical/trial/data.csv
 [10]  ddash> encrypt
 [11]  ddash> upload
 [12] ddash> checkout QmUahy9JKE6Q5LSHArePowQ91fsXNR2yKafTYtC9xQqhwP
