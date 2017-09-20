@@ -15,6 +15,8 @@
 ---
 DDASH is a distributed networking permissions manager that inferfaces between the Interplanetary File System ([IPFS](https://github.com/ipfs/ipfs)) and the [Ethereum](https://www.ethereum.org) blockchain. 
 
+[DDASH Whitepaper](https://omarmetwally.files.wordpress.com/2017/09/on-the-economics-of-knowledge-creation.pdf) 
+
 ## Why DDASH?
 ---
 Despite the wealth of data produced by academic institutions, research labs, hospitals, and companies, only a small percentage of data is used to its fullest potential. DDASH is an emerging protocol for sharing data on the distributed IPFS network and storing permissions on the Ethereum blockchain. 
