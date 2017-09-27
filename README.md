@@ -35,7 +35,7 @@ Our goals are to:
 
 ## Ethereum network
 ---
-DDASH currently runs on the *blackswan* private Ethereum network at 104.236.141.200.
+DDASH currently runs on the *blackswan* private Ethereum network.
 
 ## Prerequisites
 ---
@@ -57,20 +57,22 @@ mkdir /home/omarmetwally/blackswan/gnupg
 mkdir /home/omarmetwally/blackswan/data
 ```
 
-To connect to the *blackswan* network, you'll need to use the same genesis block defined in *genesis.json*. Move this file to `/home/omarmetwally/blackswan/` and set your genesis block (you only need to do this once, and you need to install the Ethereum go client *geth* and Ethereum developer tools first):
+To connect to the *blackswan* network, you'll need to (1) discover your enode address (analagous to a public key), and (2) share your enode address with us so we can manually add you to our network. Please email requests to join blackswan to [omar.metwally@gmail.com](mailto:omar.metwally@gmail.com).
+
+[This Ethereum networking tutorial describes how to discover your enode address.](https://omarmetwally.blog/2017/09/27/how-to-connect-3-ethereum-nodes-in-a-private-ethereum-network/). Refer to the section on discovering a node's enode address.
+
+You must use the same genesis block defined in *genesis.json*. Move this file to `/home/omarmetwally/blackswan/` and set your genesis block (you only need to do this once, and you need to install the Ethereum go client *geth* and Ethereum developer tools first):
 ```
 geth --datadir=/home/omarmetwally/blackswan/data init /home/omarmetwally/blackswan/genesis.json
-bootnode --genkey=boot.key
-bootnode --nodekey=boot.key 
 ```
 
 In order to use the *web3.py* and *ipfs* wrappers, you'll need to run *geth* and ipfs daemons in the background, respectively:
 ```
-geth --verbosity 1 --datadir /home/omarmetwally/blackswan/data --networkid 4828 --port 30303 --rpcapi="db,eth,net,web3,personal,web3" --rpc 104.236.141.200 --rpcport 8545  console 
+geth --verbosity 2 --datadir /home/omarmetwally/blackswan/data --networkid 4828 --port 30303 --rpcapi="db,eth,net,web3" --rpc --rpcport 8545 console 
 ```
 Be very careful when enabling RPC while your accounts are unlocked. This can lead to Ethereum wallet attacks, hence the warning above about keeping your development environment completely separate from any real Ether you might own.
 
-The above command starts the go Ethereum client on your local machine and attempts to connect to the blackswan server at 104.236.141.200. Remember to set your genesis block according to the above directions. Trying to join this network with a different genesis block (such as the default genesis block) will not work.
+The above command starts the go Ethereum client on your local machine and attempts to connect to the blackswan network. Remember to set your genesis block according to the above directions. Trying to join this network with a different genesis block (such as the default genesis block) will not work.
 
 Then open a new terminal window or tab and start the ifps daemon:
 ```
