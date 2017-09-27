@@ -144,7 +144,7 @@ The above commands:
 ---
 Mining difficulty is currently relatively easy (1e6) on the blackswan network. Mine Ether by running: 
 ```
-geth --verbosity 4 --datadir /Users/omarmetwally/Desktop/blackswan/data --networkid 4828 --port 30303 --rpc 104.236.141.200--rpcport 8545  --mine console
+geth --verbosity 2 --datadir /Users/omarmetwally/Desktop/blackswan/data --networkid 4828 --port 30303 --rpc --rpcport 8545  --mine console
 ```
 
 ## Permissions management 
