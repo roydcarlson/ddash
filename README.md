@@ -144,8 +144,15 @@ The above commands:
 ---
 Mining difficulty is currently relatively easy (1e6) on the blackswan network. Mine Ether by running: 
 ```
-geth --verbosity 2 --datadir /Users/omarmetwally/Desktop/blackswan/data --networkid 4828 --port 30303 --rpc --rpcport 8545  --mine console
+geth --verbosity 4 --datadir /Users/omarmetwally/Desktop/blackswan/data --networkid 4828 --port 30303 --etherbase "0xYourEthereumAddress" --mine --minerthreads=1 
 ```
+Then open a new Terminal window (if you're using a Mac) or new Terminal tab (Ctrl-tab) and check your balance:
+```
+geth attach /Users/omarmetwally/Desktop/blackswan/data/geth.ipc console
+
+> web3.eth.getBalance(web3.eth.accounts[0])
+```
+You should see your account balance increase fairly quickly as you mine.
 
 ## Permissions management 
 Data on the IPFS network cannot be removed and can be accessed by anyone who has your content hash. DDASH utilizes PGP keypair encryption to control permissions. The above examples demonstrated how to share data at IPFS address *QmRmE1vnc7mbEiqQv5SjrW3ctAmXXt4MQqbykenJmSqPuk*. If I only want Steven to be able to view the contents of this file, I'll encrypt the file using Steven's public key and upload it IPFS. The resulting IPFS hash, a description of the file, the owner, and the recipient's pubkey fingerprint (or "public") are saved on the *blackswan* blockchain.
